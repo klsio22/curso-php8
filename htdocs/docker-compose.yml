@@ -31,14 +31,13 @@ services:
     ports:
       - "8002:3306"
 
-  webserver:
-    image: "nginx:alpine"
-    working_dir: /application
+  apache:
+    image: "httpd:2.4" # Imagem do Apache
+    working_dir: /usr/local/apache2/htdocs
     volumes:
-      - ".:/application"
-      - "./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
+      - ".:/usr/local/apache2/htdocs" # DocumentRoot do Apache
     ports:
-      - "8000:80"
+      - "8000:80" # Mapeamento da porta para acesso externo
 
   php-fpm:
     build: phpdocker/php-fpm
